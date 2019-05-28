@@ -1,0 +1,5 @@
+# Considering the size of the dataset, we will not upload it to GitHub!
+dataset/
+
+# No need to upload csv files!
+*.csv
