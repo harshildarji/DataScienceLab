@@ -21,8 +21,9 @@ for dirName, subdirList, fileList in os.walk(rootDir):
         data = pd.read_json(dirName + '/' + fname, lines = True)
 
         for uid, text in enumerate(data['text']):
+            lang = data['lang'][uid]
             try:
-                if isinstance(text, str) and wordRe.search(text):
+                if isinstance(text, str) and wordRe.search(text) and lang == 'en':
                     user_id = str(data['user'][uid]['id'])
                     user_desc = str(str(data['user'][uid]['description']).replace(',', ' ').replace('\n', ' ').encode("utf-8"))[2:-1]
                     tweet = str(text.replace(',', ' ').encode("utf-8"))[2:-1]
