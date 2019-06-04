@@ -4,12 +4,15 @@ import csv
 import sys
 
 train_data = open('train_data.csv', 'a')
+train_data.write('user_id,user_desc,tweet,loc\n')
 train_label = open('train_label.csv', 'a')
+train_label.write('label\n')
+
 with open('all_data.csv') as f:
     data = csv.reader(f)
     for line in data:
         try:
-            print('\n' + line[2][2:-1])
+            print('\n' + line[2])
             label = input('Label [0/1/d]: ')
             if not label:
                 sys.exit()
@@ -21,5 +24,6 @@ with open('all_data.csv') as f:
         except Exception as e:
             #print(e)
             pass
+            
 train_data.close()
 train_label.close()

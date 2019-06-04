@@ -16,31 +16,40 @@ f.write('user_id,user_desc,tweet,loc\n')
 rootDir = './dataset'
 tweets = 0
 
+def clean(_text):
+    _cleaned = ' '.join(re.sub(r'(@[A-Za-z0-9]+)|(#[A-Za-z0-9]+)|([^0-9A-Za-z\t])|(http\S+)',' ', _text).split())
+    return (_cleaned).strip().lower()
+
 for dirName, subdirList, fileList in os.walk(rootDir):
     for fname in fileList:
         print(dirName + '/' + fname)
-        data = pd.read_json(dirName + '/' + fname, lines = True)
-        data = data[data.extended_tweet.notnull()].reset_index()
+        try:
+            data = pd.read_json(dirName + '/' + fname, lines = True)
+            data = data[data.extended_tweet.notnull()].reset_index()
 
-        for uid, lang in enumerate(data['lang']):
-            try:
-                if lang == 'en':
-                    user_id = str(data['user'][uid]['id'])
-                    user_desc = str(str(data['user'][uid]['description']).replace(',', ' ').replace('\n', ' ').encode('UTF-8'))
-                    text = str(str(data['extended_tweet'][uid]['full_text'].replace(',', ' ').replace('\n', ' ')).encode('UTF-8'))
-                    location = str(data['user'][uid]['location']).replace(',', ' ')
+            for uid, lang in enumerate(data['lang']):
+                try:
+                    if lang == 'en':
+                        user_id = str(data['user'][uid]['id'])
+                        user_desc = clean(str(data['user'][uid]['description']))
+                        text = clean(str(data['extended_tweet'][uid]['full_text']))
+                        location = str(data['user'][uid]['location']).replace(',', ' ')
 
-                    line = user_id + ',' + user_desc + ',' + text + ',' + location
+                        line = user_id + ',' + user_desc + ',' + text + ',' + location
 
-                    if isinstance(text, str) and wordRe.search(text):
-                        f.write(line + '\n')
-                        tweets += 1
+                        if wordRe.search(text):
+                            f.write(line + '\n')
+                            tweets += 1
 
-            except Exception as e:
-                #print(e)
-                pass
+                except Exception as e:
+                    #print(e)
+                    pass
+        except Exception as e:
+            #print(e)
+            pass
+
 f.close()
 end = time.time()
 
 print('\nNumber of tweets: {}'.format(tweets))
-print('Total time: {} h'.format((end - start)/3600))
+print('Total time: {} m'.format((end - start)/60))
