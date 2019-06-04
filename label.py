@@ -10,11 +10,14 @@ with open('all_data.csv') as f:
     for line in data:
         try:
             print('\n' + line[2][2:-1])
-            label = input('Label [0/1]: ')
+            label = input('Label [0/1/d]: ')
             if not label:
                 sys.exit()
-            train_data.write(','.join(line) + '\n')
-            train_label.write(label + '\n')
+            elif label == 'd':
+                pass
+            else:
+                train_data.write(','.join(line) + '\n')
+                train_label.write(label + '\n')
         except Exception as e:
             #print(e)
             pass
