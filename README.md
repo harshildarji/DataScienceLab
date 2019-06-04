@@ -3,7 +3,7 @@
 Dataset: https://archive.org/download/archiveteam-twitter-stream-2018-04/twitter-2018-04-24.tar
 
 1. [filter.py](https://github.com/harshildarji/DataScienceLab/blob/master/filter.py)
-<br/>This script will go through all the `JSON` files in `dataset` folder, and will only store the tweet if it contains the keywords defined in `keyWords` list.
+<br/>This script will go through all the `JSON` files in `dataset` folder, and will only store the tweet if it is in _English_ and contains the keywords defined in `keyWords` list.
 <br/>It will not store all the details of a particular tweets, but only the features we require for our purpose:
 <br/>- Twitter User ID
 <br/>- Twitter User Desciption
