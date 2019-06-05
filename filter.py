@@ -5,51 +5,56 @@ import os
 import pandas as pd
 import time
 import re
- 
-keyWords = ['migration', 'immigration', 'immigrants', 'migrants', 'immigrate','migrate']
-wordRe = re.compile('|'.join(keyWords), re.IGNORECASE)
-
-start = time.time()
-
-f = open('all_data.csv', 'a')
-f.write('user_id,user_desc,tweet,loc\n')
-rootDir = './dataset'
-tweets = 0
+import multiprocessing
 
 def clean(_text):
     _cleaned = ' '.join(re.sub(r'(@[A-Za-z0-9]+)|(#[A-Za-z0-9]+)|([^0-9A-Za-z\t])|(http\S+)',' ', _text).split())
     return (_cleaned).strip().lower()
 
-for dirName, subdirList, fileList in os.walk(rootDir):
-    for fname in fileList:
-        print(dirName + '/' + fname)
-        try:
-            data = pd.read_json(dirName + '/' + fname, lines = True)
-            data = data[data.extended_tweet.notnull()].reset_index()
+def _readJson(_file):
+    print(_file)
 
-            for uid, lang in enumerate(data['lang']):
-                try:
-                    if lang == 'en':
-                        user_id = str(data['user'][uid]['id'])
-                        user_desc = clean(str(data['user'][uid]['description']))
-                        text = clean(str(data['extended_tweet'][uid]['full_text']))
-                        location = str(data['user'][uid]['location']).replace(',', ' ')
+    keyWords = ['migration', 'immigration', 'immigrants', 'migrants', 'immigrate','migrate']
+    wordRe = re.compile('|'.join(keyWords), re.IGNORECASE)
 
-                        line = user_id + ',' + user_desc + ',' + text + ',' + location
+    f = open('new_data.csv', 'a')
+    try:
+        data = pd.read_json(_file, lines = True)
+        data = data[data.extended_tweet.notnull()].reset_index()
 
-                        if wordRe.search(text):
-                            f.write(line + '\n')
-                            tweets += 1
+        for uid, lang in enumerate(data['lang']):
+                if lang == 'en':
+                    user_desc = clean(str(data['user'][uid]['description']))
+                    text = clean(str(data['extended_tweet'][uid]['full_text']))
 
-                except Exception as e:
-                    #print(e)
-                    pass
-        except Exception as e:
-            #print(e)
-            pass
+                    line = user_desc + ',' + text
 
-f.close()
-end = time.time()
+                    if wordRe.search(text):
+                        f.write(line + '\n')
+                            
+    except Exception as e:
+        #print(e)
+        pass
 
-print('\nNumber of tweets: {}'.format(tweets))
-print('Total time: {} m'.format((end - start)/60))
+    f.close()
+
+if __name__ == '__main__':
+    start = time.time()
+
+    #f.write('user_id,user_desc,tweet,loc\n')
+    rootDir = './dataset'
+
+    files = []
+    for dirName, subdirList, fileList in os.walk(rootDir):
+        for fname in fileList:
+            files.append(dirName + '/' + fname)
+            
+    pool = multiprocessing.Pool()
+    pool.map(_readJson, files)
+    pool.close()
+
+    end = time.time()
+
+    df = pd.read_csv('all_data.csv')
+    print('\nNumber of tweets: {}'.format(df.shape[0]))
+    print('Total time: {} h'.format((end - start)/3600))
