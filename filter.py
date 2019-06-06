@@ -1,4 +1,4 @@
-# Dataset: https://archive.org/download/archiveteam-twitter-stream-2018-04/twitter-2018-04-24.tar
+# Dataset: https://archive.org/download/archiveteam-twitter-stream-2018-04/archiveteam-twitter-stream-2018-04.tar
 # Script to extract only the necessary tweets (and relevant features of it) from the enitre dataset using a list of keywords!
 
 import os
@@ -17,7 +17,7 @@ def _readJson(_file):
     keyWords = ['migration', 'immigration', 'immigrants', 'migrants', 'immigrate','migrate']
     wordRe = re.compile('|'.join(keyWords), re.IGNORECASE)
 
-    f = open('new_data.csv', 'a')
+    f = open('all_data.csv', 'a')
     try:
         data = pd.read_json(_file, lines = True)
         data = data[data.extended_tweet.notnull()].reset_index()
