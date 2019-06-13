@@ -14,13 +14,15 @@ def clean(_text):
 def _readJson(_file):
     print(_file)
 
-    keyWords = ['migration', 'immigration', 'immigrants', 'migrants', 'immigrate','migrate']
+    keyWords = ['migration', 'immigration', 'immigrants', 'migrants', 'immigrate', 'migrate', 'refugee', 'asylum', 'emigration', 'UNHCR']
     wordRe = re.compile('|'.join(keyWords), re.IGNORECASE)
+
+    keep_columns = ['extended_tweet', 'user', 'lang']
 
     f = open('all_data.csv', 'a')
     try:
         data = pd.read_json(_file, lines = True)
-        data = data[data.extended_tweet.notnull()].reset_index()
+        data = data[keep_columns].dropna().reset_index(drop = True)
 
         for uid, lang in enumerate(data['lang']):
                 if lang == 'en':
