@@ -18,3 +18,11 @@ Dataset: https://archive.org/download/archiveteam-twitter-stream-2018-04/archive
 <br/>- `1`: Tweet is migration relevant
 <br/>- `0`: Tweet is **NOT** migration relevant
 <br/>Once the user will hit enter, label will be stored in `train_label.csv`.
+
+3. [annotation.ipynb](https://github.com/harshildarji/DataScienceLab/blob/master/annotation.ipynb)
+<br/>This notebook **trains** and performs **evaluation** on the first 1500 (_untill now_) **labelled** data.
+<br/>Pipeline (_for now_):
+<br/>- Import data, and remove rows with null values in any columns
+<br/>- Prepare `TF-IDF` and `Doc2Vec` feature extraction techniques
+<br/>- Provide appropriate data and labels to both the techniques, train classifiers using retrieved feature vectors and store their results in a `dict`
+<br/>- Plot results!
