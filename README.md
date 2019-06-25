@@ -17,5 +17,4 @@ Dataset: https://archive.org/download/archiveteam-twitter-stream-2018-04/archive
 <br/>This will present the user with a tweet (from `all_data.csv`, line by line), user will input `1` or `0` where:
 <br/>- `1`: Tweet is migration relevant
 <br/>- `0`: Tweet is **NOT** migration relevant
-<br/>- `d`: Tweet does not serve any purpose to this project 😅
 <br/>Once the user will hit enter, label will be stored in `train_label.csv`.
