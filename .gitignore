@@ -1,5 +1,6 @@
 .vscode/
 .ipynb_checkpoints/
+*.png
 
 # Considering the size of the dataset, we will not upload it to GitHub!
 dataset/
