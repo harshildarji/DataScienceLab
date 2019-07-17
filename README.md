@@ -23,6 +23,8 @@ Dataset: https://archive.org/download/archiveteam-twitter-stream-2018-04/archive
 <br/>This notebook **trains** and performs **evaluation** on the first 1500 (_untill now_) **labelled** data.
 <br/>Pipeline (_for now_):
 <br/>- Import data, and remove rows with null values in any columns
+<br/>- Balance the dataset using [SMOTE](https://imbalanced-learn.readthedocs.io/en/stable/generated/imblearn.over_sampling.SMOTE.html)
 <br/>- Prepare `TF-IDF` and `Doc2Vec` feature extraction techniques
-<br/>- Provide appropriate data and labels to both the techniques, train classifiers using retrieved feature vectors and store their results in a `dict`
-<br/>- Plot results!
+<br/>- Provide appropriate data and labels to both the techniques, train classifiers using retrieved feature vectors
+<br/>- Perform classification on a seperate validation set
+<br/>- Print and Plot results!
