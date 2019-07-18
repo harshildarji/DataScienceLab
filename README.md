@@ -20,7 +20,7 @@ Dataset: https://archive.org/download/archiveteam-twitter-stream-2018-04/archive
 <br/>Once the user will hit enter, label will be stored in `train_label.csv`.
 
 3. [annotation.ipynb](https://github.com/harshildarji/DataScienceLab/blob/master/annotation.ipynb)
-<br/>This notebook **trains** and performs **evaluation** on the first 1500 (_untill now_) **labelled** data.
+<br/>This notebook **trains** and performs **evaluation** on the **labelled** data.
 <br/>Pipeline (_for now_):
 <br/>- Import data, and remove rows with null values in any columns
 <br/>- Balance the dataset using [SMOTE](https://imbalanced-learn.readthedocs.io/en/stable/generated/imblearn.over_sampling.SMOTE.html)
