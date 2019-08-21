@@ -1,4 +1,6 @@
 # Data Science Lab - SS - 2019
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/harshildarji/DataScienceLab.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/harshildarji/DataScienceLab/alerts/)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/harshildarji/DataScienceLab.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/harshildarji/DataScienceLab/context:python)
 
 Dataset: https://archive.org/download/archiveteam-twitter-stream-2018-04/archiveteam-twitter-stream-2018-04.tar
 
